@@ -79,7 +79,7 @@ fun HomeStatus(
             listMhs = homeUiState.data,
             modifier = modifier.fillMaxWidth(),
             onClick = { onDetailClick(it) },
-            onDelete = { deleteConfirm = it }
+            onDeleteClick = { deleteConfirm = it }
         )
 
         is HomeUiState.Error -> OnError(
@@ -143,14 +143,14 @@ fun ListMahasiswa(
     listMhs: List<Mahasiswa>,
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit,
-    onDelete: (Mahasiswa) -> Unit
+    onDeleteClick: (Mahasiswa) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
         items(items = listMhs) { mhs ->
             CardMhs(
                 mhs = mhs,
                 onClick = { onClick(mhs.nim) },
-                onDelete = { onDelete(mhs) }
+                onDeleteClick = { onDeleteClick(mhs) }
             )
         }
     }
@@ -161,7 +161,7 @@ fun ListMahasiswa(
 fun CardMhs(
     mhs: Mahasiswa,
     onClick: () -> Unit = {},
-    onDelete: (Mahasiswa) -> Unit = {},
+    onDeleteClick: (Mahasiswa) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -187,7 +187,7 @@ fun CardMhs(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(text = mhs.nim, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = { onDelete(mhs) }) {
+                IconButton(onClick = { onDeleteClick(mhs) }) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = null)
                 }
             }

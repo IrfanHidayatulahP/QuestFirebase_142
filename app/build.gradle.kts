@@ -75,6 +75,6 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation("com.google.firebase:firebase-analytics")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation("androidx.navigation:navigation-compose:2.8.3")
 }

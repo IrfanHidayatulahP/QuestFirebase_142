@@ -44,6 +44,7 @@ class HomeViewModel (
         viewModelScope.launch {
             try {
                 repoMhs.deleteMhs(mahasiswa)
+                getMhs()
             } catch (e: Exception) {
                 mhsUiState = HomeUiState.Error(e)
             }
