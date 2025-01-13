@@ -197,7 +197,7 @@ fun CardMhs(
             ) {
                 Icon(imageVector = Icons.Filled.Home, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = mhs.kelas, fontWeight = FontWeight.Bold)
+                Text(text = mhs.judulSkripsi, fontWeight = FontWeight.Bold)
             }
         }
     }
