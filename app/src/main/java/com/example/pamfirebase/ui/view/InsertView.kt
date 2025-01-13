@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -53,13 +55,9 @@ fun InsertView(
     val coroutineScope = rememberCoroutineScope()
 
     // Observasi perubahan state untuk snackbar dan navigasi
-    LaunchedEffect (uiState) {
+    LaunchedEffect(uiState) {
         when (uiState) {
             is FormState.Succes -> {
-                println(
-                    "InsertMhsView : uiState is FormState.Success, navigate to home" + uiState.message
-                )
-
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(uiState.message) // Tampilkan SnackBar
                 }
@@ -80,7 +78,7 @@ fun InsertView(
         }
     }
 
-    Scaffold (
+    Scaffold(
         modifier = modifier,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
@@ -94,7 +92,7 @@ fun InsertView(
             )
         }
     ) { padding ->
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
@@ -109,7 +107,7 @@ fun InsertView(
                 onClick = {
                     if (viewModel.validateFields()) {
                         viewModel.insertMhs()
-                        // on Navigate()
+                        onNavigate()
                     }
                 }
             )
@@ -125,8 +123,10 @@ fun InsertBodyMhs(
     onClick: () -> Unit,
     homeUiState: FormState
 ) {
-    Column (
-        modifier = modifier.fillMaxWidth(),
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()), // Enable vertical scrolling
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -196,22 +196,6 @@ fun FormMahasiswa (
         )
         Text(
             text = errorState.nim ?: "",
-            color = Color.Red
-        )
-
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = mahasiswaEvent.nama,
-            onValueChange = {
-                onValueChange(mahasiswaEvent.copy(nama = it))
-            },
-            label = { Text("Nama") },
-            isError = errorState.nama != null,
-            placeholder = { Text("Masukkan Nama") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-        Text(
-            text = errorState.nama ?: "",
             color = Color.Red
         )
 
